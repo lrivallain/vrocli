@@ -1,0 +1,29 @@
+vrocli:
+    log_level: DEBUG
+    default_paths:
+        packages: ./wd/packages/
+        expand_target: ./wd/unzip/
+        build_target: ./wd/builds/
+        working_dir: ./wd/src/
+    packages:
+        ## name of the packages
+        ## (multiple package files are supported)
+        #io.vuptime.vrocli.tests2:
+        #    # where is stored the package file
+        #    package: ./wd/packages/io.vuptime.vrocli.tests2.package
+        #    # where to store the unzip version of package
+        #    expand_target: ./wd/unzip/io.vuptime.vrocli.tests2
+        #    # where to store the build packages
+        #    build_target: ./wd/builds/io.vuptime.vrocli.tests2.package
+        #    # where to expand the actions as .js files
+        #    working_dir: ./wd/src/io.vuptime.vrocli.tests2
+        #io.vuptime.vrocli.tests:
+        #    tests:
+        #    # empty conf=>defaults
+    vro_servers:
+        ### vRO servers that can be used to push or pull the package
+        ## (mutiple servers are supported)
+        ## server_name:
+        ##     user: xxxxxxx
+        ##     pwd: *******
+        ##     verify_ssl: True

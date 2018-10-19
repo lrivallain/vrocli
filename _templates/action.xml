@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="{{ action.name }}" result-type="{{ action.xml_result }}" api-version="6.0.0" id="{{ action.id }}" version="0.0.1" allowed-operations="evf">
+  <description><![CDATA[{{ action.description }}]]></description>
+  {% for p in action.params %}<param n="{{ p.name }}" t="{{ p.type }}"><![CDATA[{% if p.desc %}{{ p.desc }}{% endif %}]]></param>
+  {% endfor %}<script encoded="false"><![CDATA[{{ script }}]]></script>
+</dunes-script-module>

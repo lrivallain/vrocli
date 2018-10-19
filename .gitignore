@@ -1,0 +1,5 @@
+*.pyc
+vrocli.log
+wd/
+.vrocli.yml
+.vscode/

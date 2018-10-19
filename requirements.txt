@@ -1,0 +1,6 @@
+pyyaml
+click
+coloredlogs
+lxml
+Jinja2
+requests
