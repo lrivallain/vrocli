@@ -5,7 +5,7 @@ setup(
     version='1.0',
     py_modules=['vrocli'],
     install_requires=[
-        'Click',
+    'Click',
 	'pyyaml',
 	'coloredlogs',
 	'lxml',
