@@ -29,10 +29,16 @@ logging.captureWarnings(True)
 def read_config():
     """ Read the configuration file and return the config object
     """
+    try:
+        # create logger
+        logger = logging.getLogger()
+    except Exception as e :
+        error_message="Cannot create the logger. Error : {0}".format(e)
+        exit(error_message)
+
     with open('.vrocli.yml', 'r') as conffile:
         try:
             config = yaml.load(conffile)['vrocli']
-            logger = logging.getLogger()
             logger.setLevel(config['log_level'])
             return config
         except yaml.YAMLError as e:

@@ -11,6 +11,8 @@ from utils import logger, read_config, confirm_action, extract_actions_from_modu
 from package import Package
 from vroserver import VroServer
 
+
+
 def print_version(ctx, param, value):
     """ Print version of vRO CLI
     """
@@ -25,6 +27,13 @@ def abort_if_false(ctx, param, value):
     """
     if not value:
         ctx.abort()
+
+def get_list_values(ctx, args, incomplete):
+    '''
+    Return the possible value for the list command : Packages - Servers
+    '''
+    possible_values = ['packages','servers']
+    return [k for k in possible_values if incomplete in k]
 
 
 @click.group(options_metavar='<options>')
@@ -42,7 +51,7 @@ def vrocli(verbose=False):
 
 @vrocli.command('list', options_metavar='',
                 short_help='List configured items (servers or packages)')
-@click.argument('itemtype', nargs=1, metavar='<string>')
+@click.argument('itemtype', nargs=1, metavar='<string>',autocompletion=get_list_values)
 def list(itemtype):
     """ List configured items (servers or packages)
     """
@@ -52,9 +61,14 @@ def list(itemtype):
     if (itemtype == 'package') or (itemtype == 'packages'):
         lookup = 'packages'
     if not lookup:
-        logger.error(""" Invalid itemtype to list from configuration: 
+        logger.error(""" Invalid itemtype to list from configuration:
         only 'server'(s)/'package'(s) values are accepted.""")
         exit(-1)
+
+    if not config.get(lookup,None):
+        logger.error(""" {0} are not defined on the configuration file """.format(lookup))
+        exit(-1)
+
     click.echo("%s configured items are:" % lookup)
     for item in config[lookup]:
         click.echo("  > %s" % str(item))
@@ -95,6 +109,7 @@ def push(package, server, build):
 def pull(package, server, expand):
     """ Get (and optionnaly expand) a package from a vRO server
     """
+    config = read_config()
     p = Package(package, config)
     v = VroServer(server, config)
     v.pull(p.name, p.src_package)
@@ -155,6 +170,8 @@ def _expand_package(package):
     p.expand()
 
 
+#Read the configuration file
+config = read_config()
+
 if __name__ == '__main__':
-    config = read_config()
     vrocli()

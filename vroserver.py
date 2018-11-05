@@ -44,6 +44,10 @@ class VroServer():
             exit(-1)
         logger.info("Downloading package data from %s to %s " %
                     (self.hostname, destination))
+        
+        #Create the destination path if not exists
+        destination_folder=os.path.dirname(destination)
+        os.makedirs(destination_folder, exist_ok=True)
         open(destination, 'wb').write(r.content)
 
 
