@@ -6,10 +6,10 @@ setup(
     py_modules=['vrocli'],
     install_requires=[
     'Click',
-	'pyyaml',
-	'coloredlogs',
-	'lxml',
-	'Jinja2',
+    'pyyaml',
+    'coloredlogs',
+    'lxml',
+    'Jinja2',
     ],
     entry_points='''
         [console_scripts]
